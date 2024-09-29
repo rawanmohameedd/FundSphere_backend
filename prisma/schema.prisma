@@ -19,17 +19,19 @@ model user {
 
 // Campaign Model
 model campaign {
-  campaign_id   Int      @id @default(autoincrement())
-  user_id       Int
-  title         String
-  description   String
-  goal_amount   Decimal   @db.Decimal(10, 2)
-  current_amount Decimal   @db.Decimal(10, 2) @default(0.00)
-  start_date    DateTime
-  end_date      DateTime
-  created_at    DateTime  @default(now())
-  user          user      @relation(fields: [user_id], references: [user_id])
-  donations     donation[] 
+  campaign_id      Int        @id @default(autoincrement())
+  user_id          Int
+  title            String
+  description      String
+  goal_amount      Decimal     @db.Decimal(10, 2)
+  current_amount   Decimal     @db.Decimal(10, 2) @default(0.00)
+  start_date       DateTime
+  end_date         DateTime
+  created_at       DateTime    @default(now())
+  user             user        @relation(fields: [user_id], references: [user_id])
+  donations        donation[]
+  category_id      Int         
+  category         category     @relation(fields: [category_id], references: [category_id]) 
 }
 
 // Donations Model
@@ -41,7 +43,7 @@ model donation {
   donation_date DateTime  @default(now())
   user          user      @relation(fields: [user_id], references: [user_id])
   campaign      campaign   @relation(fields: [campaign_id], references: [campaign_id]) 
-  payment       payment[]
+  payment       payment[]  
 }
 
 // Payment Model
@@ -51,4 +53,11 @@ model payment {
   Payment_status String   // 'pending', 'completed', 'failed'
   processed_time DateTime @default(now())
   donation      donation  @relation(fields: [donation_id], references: [donation_id])
+}
+
+// Category Model
+model category {
+  category_id Int        @id @default(autoincrement())
+  name        String     @unique
+  campaigns   campaign[] // One category can have multiple campaigns
 }
