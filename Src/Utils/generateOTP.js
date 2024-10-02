@@ -22,7 +22,7 @@ async function sendOTP(email) {
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to: email,
-    subject: 'Your OTP Code',
+    subject: 'FundSphere OTP Verfication',
     text: `Your OTP code is ${otp}`
   };
 

@@ -28,6 +28,7 @@ Router.post("/signup", async(req,res)=>{
         password: req.body.password
     }
 
+    console.log(payload)
     const result = await userServices.signUp(payload)
 
     if(result.value)

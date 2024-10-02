@@ -13,9 +13,9 @@ async function signIn({signed, password}) {
     if (!user)
         return accountutils.generateErrorMessage(404, "Authentication Failed: Email/Username or password not correct")
 
-    generateToken(user)
+    const token = generateToken(user)
 
-    return {value: user}
+    return {value: user, token}
 }
 
 async function signUp ({email,username,password}){
@@ -25,8 +25,8 @@ async function signUp ({email,username,password}){
     if (!accountutils.isEmail(email))
         return accountutils.generateErrorMessage(400,"Invalid Email Format")
 
-    if(!accountutils.isPassword(password))
-        return accountutils.generateErrorMessage(400,"Password must be 8 charachters minmumm and contain at least one digit, small letter, capital letter")
+    // if(!accountutils.isPassword(password))
+    //     return accountutils.generateErrorMessage(400,"Password must be 8 charachters minmumm and contain at least one digit, small letter, capital letter")
 
     const ecncryptPassword = accountutils.ecncryptPassword(password)
 
@@ -36,9 +36,9 @@ async function signUp ({email,username,password}){
     if(!user)
         return accountutils.generateErrorMessage(500, "An error has occured")
 
-    generateToken(user)
+    const token = generateToken(user)
 
-    return {value:user}
+    return {value:user,token}
 }
 
 module.exports ={
