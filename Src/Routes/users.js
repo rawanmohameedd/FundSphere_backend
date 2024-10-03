@@ -75,4 +75,18 @@ Router.post('/verify-otp', async (req, res) => {
     }
 });
 
+
+//get profile data
+Router.get("/getProfile", auth, async(req,res)=>{
+    try{
+        const { password, ...userWithoutPassword } = req.user;
+
+        return res.send(userWithoutPassword);
+        } catch(err){
+        console.error("error fetching profile", err.message)
+        return res.status(500).send({
+            message: "Internal server error"
+        })
+    }
+})
 module.exports = Router

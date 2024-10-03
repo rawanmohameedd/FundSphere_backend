@@ -59,7 +59,24 @@ async function signUp({ username, email, ecncryptPassword }) {
     }
 }
 
+async function getById(email) {
+    try {
+        const user = await prisma.user.findUnique({
+            where: {email: email}
+        })
+
+        if (user)
+            return user
+
+        return null
+    } catch (err) {
+        console.error(err.message)
+        return null
+    }
+}
+
 module.exports = {
     signIn,
     signUp,
+    getById
 }

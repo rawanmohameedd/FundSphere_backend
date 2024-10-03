@@ -13,6 +13,7 @@ model user {
   username   String   @unique
   email      String   @unique
   password   String
+  profile_photo String?
   campaigns   campaign[]  
   donations   donation[]
 }
@@ -28,6 +29,7 @@ model campaign {
   start_date       DateTime
   end_date         DateTime
   created_at       DateTime    @default(now())
+  campaign_photo String?
   user             user        @relation(fields: [user_id], references: [user_id])
   donations        donation[]
   category_id      Int         

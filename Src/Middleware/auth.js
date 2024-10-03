@@ -6,7 +6,12 @@ const auth = async (req, res, next) => {
     try {
 
         // Extract token from authorization header Bearer<token>
-        const token = req.header("Authorization").replace("Bearer ", ""); 
+        const token = req.header("Authorization").replace("Bearer ", "");
+        console.log("Authorization header:", token);
+        if (!token) {
+            return res.status(401).send({ message: "No token provided" });
+        }
+
         const decoded = jwt.verify(token, process.env.SECRET);
 
         const user = await User.getById(decoded.email);
