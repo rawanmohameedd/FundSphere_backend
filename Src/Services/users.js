@@ -41,7 +41,30 @@ async function signUp ({email,username,password}){
     return {value:user,token}
 }
 
+async function updateProfile ({url, email}){
+    if (!email || !url)
+        return accountutils.generateErrorMessage(400,"Email orUrl is missing")
+
+    const profile = await userModels.updateProfilePhoto({url, email})
+
+    if(!profile)
+        return accountutils.generateErrorMessage(500,"Can't update this user profile photo")
+
+    return profile
+}
+
+async function deleteProfilePhoto(email){
+    const deleted = await userModels.deleteProfilePhoto(email)
+
+    if(!deleted)
+        return accountutils.generateErrorMessage(500,"Can't detlete this user profile photo")
+
+    return deleted
+}
+
 module.exports ={
     signIn,
-    signUp
+    signUp,
+    updateProfile,
+    deleteProfilePhoto
 }

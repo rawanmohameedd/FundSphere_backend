@@ -2,8 +2,8 @@ const express = require ('express')
 const userServices = require('../Services/users')
 const otp = require('../Utils/generateOTP')
 const auth = require('../Middleware/auth.js')
+const cloudinary = require('../Utils/cloudinary.js')
 const Router = new express.Router()
-
 
 Router.post("/signin", async(req,res)=>{
     const payload ={
@@ -55,7 +55,6 @@ Router.post('/send-otp', async (req, res) => {
     }
 });
 
-// Verify OTP route
 Router.post('/verify-otp', async (req, res) => {
     const payload = {
         email: req.body.email,
@@ -75,8 +74,6 @@ Router.post('/verify-otp', async (req, res) => {
     }
 });
 
-
-//get profile data
 Router.get("/getProfile", auth, async(req,res)=>{
     try{
         const { password, ...userWithoutPassword } = req.user;
@@ -89,4 +86,52 @@ Router.get("/getProfile", auth, async(req,res)=>{
         })
     }
 })
+
+Router.post('/upload',auth, async (req, res) => {
+    console.log('Uploaded files:', req.files);
+
+    if (!req.files || Object.keys(req.files).length === 0) {
+        return res.status(400).json({ message: 'No file uploaded.' });
+    }
+
+    const uploadedFile = req.files.photo; 
+    const email = req.user.email; 
+
+    try {
+        const result = await new Promise((resolve, reject) => {
+            const stream = cloudinary.uploader.upload_stream(
+                { resource_type: 'auto' },
+                (error, result) => {
+                    if (error) {
+                        console.error('Error uploading to Cloudinary:', error);
+                        return reject(error);
+                    }
+                    resolve(result);
+                }
+            );
+
+            // End the stream with the file data
+            stream.end(uploadedFile.data); 
+        });
+
+        const url = result.secure_url
+
+        const user = await userServices.updateProfile({url , email})
+        return res.send({ user });
+    } catch (error) {
+        console.error('Error in upload process:', error);
+        return res.status(500).json({ message: 'Upload failed' });
+    }
+});
+
+Router.delete('/deleteProfilePhoto', auth, async (req, res) => {
+    try {
+        const updatedUser = await userServices.deleteProfilePhoto(req.user.email);
+        return res.status(200).json({ user: updatedUser });
+    } catch (error) {
+        console.error('Error deleting profile photo:', error);
+        return res.status(500).json({ message: 'Failed to delete profile photo.' });
+    }
+});
+
 module.exports = Router

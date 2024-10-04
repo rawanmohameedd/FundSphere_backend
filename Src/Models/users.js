@@ -75,8 +75,57 @@ async function getById(email) {
     }
 }
 
+async function updateProfilePhoto({url, email}){
+    try{
+        const updatedUser = await prisma.user.update({
+            where: { email:email }, 
+            data: { profile_photo: url }, 
+            select: {
+                user_id: true,
+                username: true,
+                email: true,
+                profile_photo: true, 
+            },
+        });
+
+        if (updatedUser)
+            return updatedUser
+
+        return null
+    }catch(err){
+        console.error(err.mesaage)
+        return null
+    }
+}
+
+async function deleteProfilePhoto(email) {
+    try {
+        const updatedUser = await prisma.user.update({
+            where: { email: email }, 
+            data: { profile_photo: null }, 
+            select: {
+                user_id: true,
+                username: true,
+                email: true,
+                profile_photo: true
+            },
+        });
+
+        if (updatedUser) {
+            return updatedUser;
+        }
+
+        return null;
+    } catch (error) {
+        console.error('Error deleting profile photo:', error.message);
+        return null;
+    }
+}
+
 module.exports = {
     signIn,
     signUp,
-    getById
+    getById,
+    updateProfilePhoto,
+    deleteProfilePhoto
 }

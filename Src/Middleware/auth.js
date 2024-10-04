@@ -7,7 +7,6 @@ const auth = async (req, res, next) => {
 
         // Extract token from authorization header Bearer<token>
         const token = req.header("Authorization").replace("Bearer ", "");
-        console.log("Authorization header:", token);
         if (!token) {
             return res.status(401).send({ message: "No token provided" });
         }
