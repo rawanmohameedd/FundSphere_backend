@@ -62,9 +62,19 @@ async function deleteProfilePhoto(email){
     return deleted
 }
 
+async function searching(searchTerm){
+    const searching = await userModels.search(searchTerm)
+
+    if(!searching)
+        return accountutils.generateErrorMessage(404,'There is no user with this name/email')
+
+    return searching
+}
+
 module.exports ={
     signIn,
     signUp,
     updateProfile,
-    deleteProfilePhoto
+    deleteProfilePhoto,
+    searching
 }

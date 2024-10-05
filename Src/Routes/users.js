@@ -98,23 +98,7 @@ Router.post('/upload',auth, async (req, res) => {
     const email = req.user.email; 
 
     try {
-        const result = await new Promise((resolve, reject) => {
-            const stream = cloudinary.uploader.upload_stream(
-                { resource_type: 'auto' },
-                (error, result) => {
-                    if (error) {
-                        console.error('Error uploading to Cloudinary:', error);
-                        return reject(error);
-                    }
-                    resolve(result);
-                }
-            );
-
-            // End the stream with the file data
-            stream.end(uploadedFile.data); 
-        });
-
-        const url = result.secure_url
+        const url = await cloudinary.uploadPhoto(uploadedFile)
 
         const user = await userServices.updateProfile({url , email})
         return res.send({ user });
@@ -134,4 +118,16 @@ Router.delete('/deleteProfilePhoto', auth, async (req, res) => {
     }
 });
 
+Router.get('/searchUsers/:searchterm',async(req, res)=>{
+    try{
+        const searchTerm = req.params.searchterm
+
+        const result = await userServices.searching(searchTerm)
+        return res.status(200).json(result);
+
+    }catch(err){
+        console.error("can't search for users", err.message)
+        return res.status(500).json("internal server error")
+    }
+})
 module.exports = Router

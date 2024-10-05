@@ -122,10 +122,32 @@ async function deleteProfilePhoto(email) {
     }
 }
 
+async function search (searchTerm){
+    try{
+    console.log(searchTerm)
+
+        const users = await prisma.user.findMany({
+            where: {
+                OR:[
+                    {username: {contains: searchTerm, mode:'insensitive'}},
+                    {email: searchTerm }
+                ]
+            }
+        })
+        if (users)
+            return users
+
+        return null
+    }catch(err){
+        console.error('Error in getting users with this term:', err.message)
+    }
+}
+
 module.exports = {
     signIn,
     signUp,
     getById,
     updateProfilePhoto,
-    deleteProfilePhoto
+    deleteProfilePhoto,
+    search
 }
