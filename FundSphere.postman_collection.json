@@ -1,0 +1,415 @@
+{
+	"info": {
+		"_postman_id": "e4c5a526-d2c0-4ea4-97b6-cdbcfc7018fa",
+		"name": "FundSphere",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31111057"
+	},
+	"item": [
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "Sign in",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"signed\":\"nadamohameedd260499@gmail.com\",\r\n    \"password\":\"262121hnrA\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/signin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sign up",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"nadamohamed260499@gmail.com\",\r\n    \"username\":\"RawaanMoh\",\r\n    \"password\":\"262121hnrA\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/signup",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "send otp",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"Rawan.Mahmoud.65@h-eng.helwan.edu.eg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/send-otp",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"send-otp"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "verify otp",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"Rawan.Mahmoud.65@h-eng.helwan.edu.eg\",\r\n    \"otp\": \"756110\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/verify-otp",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"verify-otp"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get Profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5hZGFtb2hhbWVlZGQyNjA0OTlAZ21haWwuY29tIiwiaWF0IjoxNzI3OTE5OTU0LCJleHAiOjE3MjgwOTI3NTR9.rVkQGQ2xUQ-LvVSG9Pfw3PMraHERNP6hQhqnhVsJM6A",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/getProfile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"getProfile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload Profile photo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5hZGFtb2hhbWVlZGQyNjA0OTlAZ21haWwuY29tIiwiaWF0IjoxNzI4MDg5OTQxLCJleHAiOjE3MjgyNjI3NDF9.eoPI_kPJ0BkF-EdBKPShfpqumTJ001Ijr9YFk218cCo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "",
+									"type": "file",
+									"src": [],
+									"disabled": true
+								},
+								{
+									"key": "photo",
+									"type": "file",
+									"src": "postman-cloud:///1ef813ca-5e6e-4c50-aabc-ca5754fe8d8b"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/upload",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete profile photo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5hZGFtb2hhbWVlZGQyNjA0OTlAZ21haWwuY29tIiwiaWF0IjoxNzI4MDQ2NDQ3LCJleHAiOjE3MjgyMTkyNDd9.H7m6ftPVgBP0gLituBAxAlNlhv2JV0xKqycKa2acH6Q",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/deleteProfilePhoto",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"deleteProfilePhoto"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "campaigns",
+			"item": [
+				{
+					"name": "Create Camaign",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5hZGFtb2hhbWVlZGQyNjA0OTlAZ21haWwuY29tIiwiaWF0IjoxNzI4MDg4NzQzLCJleHAiOjE3MjgyNjE1NDN9.u3miu0TbxAOqphjgcl5gBhWRtX-xk9bLO3Y68jRRSII",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "photo",
+									"type": "file",
+									"src": "postman-cloud:///1ef379e0-a48f-4a50-8767-db7003b3243f"
+								},
+								{
+									"key": "title",
+									"value": "Help for health",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Support health initiatives",
+									"type": "text"
+								},
+								{
+									"key": "goal_amount",
+									"value": "5000",
+									"type": "text"
+								},
+								{
+									"key": "start_date",
+									"value": "2024-10-30",
+									"type": "text"
+								},
+								{
+									"key": "end_date",
+									"value": "2024-12-30",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "Health",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/createCampaign",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"createCampaign"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Campaign",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5hZGFtb2hhbWVlZGQyNjA0OTlAZ21haWwuY29tIiwiaWF0IjoxNzI4MDkxMTY5LCJleHAiOjE3MjgyNjM5Njl9.8ZyH88foY0F_hn6Edvct15zh7YgcSlJh9vmtyO44UBM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "goal_amount",
+									"value": "10000",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/editCampaign/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"editCampaign",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Campaign",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/deleteCampaign/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"deleteCampaign",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get campaign details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/getCampaign/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"getCampaign",
+								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "donations",
+			"item": []
+		},
+		{
+			"name": "payments",
+			"item": []
+		},
+		{
+			"name": "Search by users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/searchUsers/moh",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"searchUsers",
+						"moh"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,6 +1,5 @@
 const { PrismaClient } = require('@prisma/client')
 const bcrypt = require('bcrypt')
-const { ecncryptPassword } = require('../Utils/checkAccountFields')
 const prisma = new PrismaClient
 
 async function signIn({ signed, password }) {

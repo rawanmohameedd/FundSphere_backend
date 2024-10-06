@@ -5,38 +5,31 @@ const Router = new express.Router()
 
 const camaignServices = require('../Services/campaigns')
 
+
 Router.post('/createCampaign', auth, async (req, res) => {
-
-    //get user_id from user token
-    const user_id = req.user.user_id
-
-    const uploadedFile = req.files.photo;
-
     try {
-        // upload campagin photo to the cloud, if success create the camaign
-        const url = await cloudinary.uploadPhoto(uploadedFile)
+        const { title, description, goal_amount, start_date, end_date, category } = req.body;
+        const user_id = req.user.user_id;
+        const url = await cloudinary.uploadPhoto(req.files.photo);
 
-        // create the campaign
-        const payload = {
+        const campaign = await camaignServices.createCampagin({
             user_id,
-            title: req.body.title,
-            description: req.body.description,
-            goal_amount: req.body.goal_amount,
-            start_date: req.body.start_date,
-            end_date:req.body.end_date,
-            category: req.body.category,
+            title,
+            description,
+            goal_amount,
+            start_date,
+            end_date,
+            category,
             url
-        }
+        });
 
-        console.log(payload)
-        const camaign = await camaignServices.createCampagin(payload)
-        return res.send({ camaign });
+        res.send({ campaign });
     } catch (error) {
         console.error('Error in upload process:', error);
-        return res.status(500).json({ message: 'Upload failed' });
+        res.status(500).json({ message: 'Upload failed' });
     }
+});
 
-})
 
 Router.put('/editCampaign/:campaign_id',auth, async(req,res)=>{
     const campaign_id = parseInt(req.params.campaign_id,10)
