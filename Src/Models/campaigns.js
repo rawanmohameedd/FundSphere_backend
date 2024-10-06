@@ -111,41 +111,130 @@ async function showCampaign(campaign_id) {
 
 async function showCampaigns() {
     try {
-
+        const campains = await prisma.campaign.findMany()
+        if (campains)
+            return campains
+        return null
     } catch (err) {
         console.error(err.message)
+        return null
     }
 }
 
 async function showCategories() {
     try {
-
+        const categories = await prisma.category.findMany()
+        if (categories)
+            return categories
+        return null
     } catch (err) {
         console.error(err.message)
+        return null
     }
 }
 
-async function showCampaignsByCat() {
+async function showCampaignsByCat(category_id) {
     try {
+        const campaigns = await prisma.campaign.findMany({
+            where: {
+                category_id:category_id
+            },
+            select: {
+                campaign_id: true,
+                user_id: true,
+                title: true,
+                description: true,
+                goal_amount: true,
+                current_amount: true,
+                start_date: true,
+                end_date: true,
+                created_at: true,
+                campaign_photo: true,
+                user: true,
+                donations: true,
+                category_id: true,
+                category: true,
+            }
+        })
+        if (campaigns)
+            return campaigns
 
+        return null
     } catch (err) {
         console.error(err.message)
+        return null
     }
 }
 
-async function searchCamaigns() {
+async function showCampaignsByUser(user_id) {
     try {
+        const campaigns = await prisma.campaign.findMany({
+            where: {
+                user_id:user_id
+            },
+            select: {
+                campaign_id: true,
+                user_id: true,
+                title: true,
+                description: true,
+                goal_amount: true,
+                current_amount: true,
+                start_date: true,
+                end_date: true,
+                created_at: true,
+                campaign_photo: true,
+                user: true,
+                donations: true,
+                category_id: true,
+                category: true,
+            }
+        })
+        if (campaigns)
+            return campaigns
 
+        return null
     } catch (err) {
         console.error(err.message)
+        return null
     }
 }
 
-async function searchCategories() {
+async function searchCamaigns(searched) {
     try {
+        const campaigns = await prisma.campaign.findMany({
+            where:{
+                OR:[
+                    {title:{ contains:searched, mode:'insensitive'}},
+                    {description: {contains: searched, mode:'insensitive'}}
+                ]
+            }
+        })
 
+        if(campaigns)
+            return campaigns
+
+        return null
     } catch (err) {
         console.error(err.message)
+        return null
+    }
+}
+
+async function searchCategories(searched) {
+    try {
+        const campaigns = await prisma.campaign.findMany({
+            where:{
+                    category:{name:{ contains:searched, mode:'insensitive'}}
+            }
+        })
+
+        if(campaigns)
+            return campaigns
+
+        return null
+    } catch (err) {
+        console.error(err.message)
+        return null
     }
 }
 
@@ -158,6 +247,7 @@ module.exports = {
     showCampaigns,
     showCategories,
     showCampaignsByCat,
+    showCampaignsByUser,
     searchCamaigns,
     searchCategories
 }

@@ -30,7 +30,6 @@ Router.post('/createCampaign', auth, async (req, res) => {
     }
 });
 
-
 Router.put('/editCampaign/:campaign_id',auth, async(req,res)=>{
     const campaign_id = parseInt(req.params.campaign_id,10)
 
@@ -85,6 +84,81 @@ Router.get('/getCampaign/:campaign_id',async(req,res)=>{
         return res.status(200).json({result });
     } catch (err) {
         console.error('Error getting this campaign:', err.message);
+        return res.status(500).json({ message: 'Internal server error' });
+    }
+})
+
+Router.get('/getCampains',async(req,res)=>{
+    try{
+        const campains = await camaignServices.getCampains()
+        console.log(campains)
+        return res.status(200).json(campains);
+    }catch(err){
+        console.error('Error getting all campains',err.message)
+        return res.status(500).json({ message: 'Internal server error' });
+    }
+})
+
+Router.get('/getCategories',async(req,res)=>{
+    try{
+        const categories = await camaignServices.getCategories()
+        console.log(categories)
+        return res.status(200).json(categories);
+    }catch(err){
+        console.error('Error getting all categories',err.message)
+        return res.status(500).json({ message: 'Internal server error' });
+    }
+})
+
+Router.get('/getCampainsbyCat/:category_id',async(req,res)=>{
+    try{
+        const category_id = parseInt(req.params.category_id,10)
+        const campaigns = await camaignServices.getCampaignsByCat(category_id)
+
+        console.log(campaigns)
+        return res.status(200).json(campaigns);
+    }catch(err){
+        console.error('Error getting campaigns',err.message)
+        return res.status(500).json({ message: 'Internal server error' });
+    }
+})
+
+Router.get('/getCampainsbyUser',auth,async(req,res)=>{
+    try{
+        const user_id = parseInt(req.user.user_id)
+        const campaigns = await camaignServices.getCampaignsByUser(user_id)
+
+        console.log(campaigns)
+        return res.status(200).json(campaigns);
+    }catch(err){
+        console.error('Error getting campaigns',err.message)
+        return res.status(500).json({ message: 'Internal server error' });
+    }
+})
+
+Router.get('/searchCamp/:searched', async(req,res)=>{
+    try{
+    const search_term = req.params.searched
+    const campaigns = await camaignServices.searchCampaigns(search_term)
+
+    console.log(campaigns)
+    res.status(200).json(campaigns)
+    } catch(err){
+        console.error('Error getting campaigns',err.message)
+        return res.status(500).json({ message: 'Internal server error' });
+    }
+
+})
+
+Router.get('/searchCat/:searched', async(req,res)=>{
+    try{
+    const search_term = req.params.searched
+    const categories = await camaignServices.searchCategories(search_term)
+
+    console.log(search_term,categories)
+    res.status(200).json(categories)
+    } catch(err){
+        console.error('Error getting categories',err.message)
         return res.status(500).json({ message: 'Internal server error' });
     }
 })

@@ -1,3 +1,4 @@
+const utils = require('pg/lib/utils')
 const campaignModels = require('../Models/campaigns')
 const Utils = require('../Utils/checkAccountFields')
 
@@ -65,9 +66,62 @@ async function getCampaign (campaign_id){
 
 }
 
+async function getCampains(){
+    const campains = await campaignModels.showCampaigns()
+    if (campains)
+        return campains
+    return Utils.generateErrorMessage(400,"An error has occured")
+}
+
+async function getCategories(){
+    const categories = await campaignModels.showCategories()
+    if (categories)
+        return categories
+    return Utils.generateErrorMessage(400,"An error has occured")
+}
+
+async function  getCampaignsByCat(category_id) {
+    const campaigns = await campaignModels.showCampaignsByCat(category_id)
+
+    if(!campaigns)
+        return Utils.generateErrorMessage(404,"Category not Found")
+
+    return campaigns
+}
+
+async function  getCampaignsByUser(user_id) {
+    const campaigns = await campaignModels.showCampaignsByUser(user_id)
+
+    if(!campaigns)
+        return Utils.generateErrorMessage(404,"Campaign not Found")
+
+    return campaigns
+}
+
+async function searchCampaigns(searched) {
+    const campigns = await campaignModels.searchCamaigns(searched)
+    if(!campigns)
+        return Utils.generateErrorMessage(404,`No campaigns for this search term ${searched}`) 
+    
+    return campigns
+}
+
+async function searchCategories(searched) {
+    const categories = await campaignModels.searchCategories(searched)
+    if(!categories)
+        return utils.generateErrorMessage(404,`No categories for this search term ${searched}`) 
+    
+    return categories
+}
 module.exports ={
     createCampagin,
     updateCampagin,
     deleteCampign,
     getCampaign,
+    getCampains,
+    getCategories,
+    getCampaignsByCat,
+    getCampaignsByUser,
+    searchCampaigns,
+    searchCategories
 }
