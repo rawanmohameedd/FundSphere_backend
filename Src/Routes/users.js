@@ -130,4 +130,5 @@ Router.get('/searchUsers/:searchterm',async(req, res)=>{
         return res.status(500).json("internal server error")
     }
 })
+
 module.exports = Router

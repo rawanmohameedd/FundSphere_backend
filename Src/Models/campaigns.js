@@ -222,9 +222,9 @@ async function searchCamaigns(searched) {
 
 async function searchCategories(searched) {
     try {
-        const campaigns = await prisma.campaign.findMany({
+        const campaigns = await prisma.category.findMany({
             where:{
-                    category:{name:{ contains:searched, mode:'insensitive'}}
+                   name:{ contains:searched, mode:'insensitive'}
             }
         })
 
