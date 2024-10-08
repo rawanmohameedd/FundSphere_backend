@@ -43,6 +43,56 @@ async function makeDonation ({user_id, campaign_id, amount}){
     }
 }
 
+async function getDonations_byUsers (user_id){
+    try{
+        const donation = await prisma.donation.findMany({
+            where: { user_id: user_id},
+            select:{
+                donation_id: true,
+                user_id: true,
+                campaign_id: true,
+                amount: true,
+                donation_date: true,
+                campaign: true
+            }
+        })
+
+        if(donation)
+            return donation
+
+        return null
+    } catch(err){
+        console.error("Error getting donations", err.message)
+        return null
+    }
+}
+
+async function getDonations_byCampaigns (campaign_id){
+    try{
+        const donation = await prisma.donation.findMany({
+            where: {campaign_id: campaign_id},
+            select:{
+                donation_id: true,
+                user_id: true,
+                campaign_id: true,
+                amount: true,
+                donation_date: true,
+                user: true,
+            }
+        })
+
+        if(donation)
+            return donation
+
+        return null
+    } catch(err){
+        console.error("Error getting donations", err.message)
+        return null
+    }
+}
+
 module.exports = {
-    makeDonation
+    makeDonation,
+    getDonations_byUsers,
+    getDonations_byCampaigns
 }
