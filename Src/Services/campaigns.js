@@ -1,4 +1,3 @@
-const utils = require('pg/lib/utils')
 const campaignModels = require('../Models/campaigns')
 const Utils = require('../Utils/checkAccountFields')
 

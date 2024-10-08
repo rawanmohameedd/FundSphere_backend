@@ -9,13 +9,13 @@ generator client {
 
 // User Model 
 model user {
-  user_id   Int      @id @default(autoincrement())
-  username   String   @unique
-  email      String   @unique
-  password   String
-  profile_photo String?
-  campaigns   campaign[]  
-  donations   donation[]
+  user_id        Int        @id @default(autoincrement())
+  username       String     @unique
+  email          String     @unique
+  password       String
+  profile_photo  String?
+  campaigns      campaign[]  
+  donations      donation[]
 }
 
 // Campaign Model
@@ -29,32 +29,22 @@ model campaign {
   start_date       DateTime
   end_date         DateTime
   created_at       DateTime    @default(now())
-  campaign_photo String?
+  campaign_photo   String?
   user             user        @relation(fields: [user_id], references: [user_id])
   donations        donation[]
   category_id      Int         
-  category         category     @relation(fields: [category_id], references: [category_id]) 
+  category         category    @relation(fields: [category_id], references: [category_id]) 
 }
 
 // Donations Model
 model donation {
-  donation_id   Int      @id @default(autoincrement())
-  user_id       Int
-  campaign_id   Int
-  amount        Decimal   @db.Decimal(10, 2)
-  donation_date DateTime  @default(now())
-  user          user      @relation(fields: [user_id], references: [user_id])
-  campaign      campaign   @relation(fields: [campaign_id], references: [campaign_id]) 
-  payment       payment[]  
-}
-
-// Payment Model
-model payment {
-  payment_id    Int      @id @default(autoincrement())
-  donation_id   Int
-  Payment_status String   // 'pending', 'completed', 'failed'
-  processed_time DateTime @default(now())
-  donation      donation  @relation(fields: [donation_id], references: [donation_id])
+  donation_id    Int      @id @default(autoincrement())
+  user_id        Int
+  campaign_id    Int
+  amount         Decimal   @db.Decimal(10, 2)
+  donation_date  DateTime  @default(now())
+  user           user      @relation(fields: [user_id], references: [user_id])
+  campaign       campaign  @relation(fields: [campaign_id], references: [campaign_id]) 
 }
 
 // Category Model
