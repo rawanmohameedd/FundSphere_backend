@@ -226,6 +226,26 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Search by users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/searchUsers/moh",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"searchUsers",
+								"moh"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -347,7 +367,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/deleteCampaign/4",
+							"raw": "http://localhost:3000/deleteCampaign/11",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -355,7 +375,7 @@
 							"port": "3000",
 							"path": [
 								"deleteCampaign",
-								"4"
+								"11"
 							]
 						}
 					},
@@ -367,7 +387,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/getCampaign/5",
+							"raw": "http://localhost:3000/getCampaign/12",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -375,7 +395,122 @@
 							"port": "3000",
 							"path": [
 								"getCampaign",
-								"5"
+								"12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all campains",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/getCampains",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"getCampains"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/getCategories",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"getCategories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get campaigns by category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/getCampainsbyCat/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"getCampainsbyCat",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all campaigns by user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5hZGFtb2hhbWVlZGQyNjA0OTlAZ21haWwuY29tIiwiaWF0IjoxNzI4MjA3MDgyLCJleHAiOjE3MjgzNzk4ODJ9.RHMs_WWXZ2M9GihCztw_Z0ArDpj-2IBtgwI2TdtxvfY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/getCampains",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"getCampains"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Campaigns",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Search Categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/searchCat/education",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"searchCat",
+								"education"
 							]
 						}
 					},
@@ -385,31 +520,95 @@
 		},
 		{
 			"name": "donations",
-			"item": []
-		},
-		{
-			"name": "payments",
-			"item": []
-		},
-		{
-			"name": "Search by users",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3000/searchUsers/moh",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"searchUsers",
-						"moh"
-					]
+			"item": [
+				{
+					"name": "Make a donation",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5hZGFtb2hhbWVlZGQyNjA0OTlAZ21haWwuY29tIiwiaWF0IjoxNzI4MzY1NDgxLCJleHAiOjE3Mjg1MzgyODF9.jbHER0O_0R4hobZvWAa9GLeOCuj6pH2n5wRv1kJCmvY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"campaign_id\":6,\r\n    \"amount\":500\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/makeDonation",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"makeDonation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get donations by campaign",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/campaignDonations/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"campaignDonations",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get donations by user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5hZGFtb2hhbWVlZGQyNjA0OTlAZ21haWwuY29tIiwiaWF0IjoxNzI4MzcyMDczLCJleHAiOjE3Mjg1NDQ4NzN9.IjQDW29bSI9KgukNQwWd0H5rzimcwrMU_RmlW3OZGRI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/userDonations",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"userDonations"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		}
 	]
 }

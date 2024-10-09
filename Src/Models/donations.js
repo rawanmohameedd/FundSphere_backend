@@ -78,6 +78,7 @@ async function getDonations_byCampaigns (campaign_id){
                 amount: true,
                 donation_date: true,
                 user: true,
+                campaign: true
             }
         })
 
